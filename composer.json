@@ -2,8 +2,8 @@
     "name": "defre/todo",
     "autoload": {
         "psr-4" : {
-            "App :\\": "src/",
-            "Config\\": "config/"
+            "App\\":"src/",
+            "Config\\":"config/"
         }
     },
     "authors" : [
