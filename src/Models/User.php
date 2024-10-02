@@ -11,23 +11,26 @@ class User
     protected ?string $pseudo;
     protected ?string $mail;
     protected ?string $password;
+    protected int|null $score;
     protected int|string|null $id_role;
+    
 
-    public function __construct(?int $id, ?string $pseudo, ?string $mail, ?string $password, int|string|null $id_role)
+    public function __construct(?int $id, ?string $pseudo, ?string $mail, ?string $password, int|null $score, int|string|null $id_role)
     {
         $this->id = $id;
         $this->pseudo = $pseudo;
         $this->mail = $mail;
         $this->password = $password;
+        $this->score = $score;
         $this->id_role = $id_role;
     }
 
     public function save(): bool
     {
         $pdo = DataBase::getConnection();
-        $sql = "INSERT INTO user (id,pseudo,mail,password,id_role) VALUES (?,?,?,?,?)";
+        $sql = "INSERT INTO user (id,pseudo,mail,password,score,id_role) VALUES (?,?,?,?,?,?)";
         $statement = $pdo->prepare($sql);
-        return $statement->execute([$this->id, $this->pseudo, $this->mail, $this->password, $this->id_role]);
+        return $statement->execute([$this->id, $this->pseudo, $this->mail, $this->password,$this->score, $this->id_role]);
     }
 
     public function login($mail)
@@ -38,9 +41,9 @@ class User
         $statement->execute([$mail]);
         $row = $statement->fetch(PDO::FETCH_ASSOC);
         if ($row['id_role'] == 1) {
-            return new UserParent($row['id'], $row['pseudo'], $row['mail'], $row['password'], $row['id_role']);
+            return new UserParent($row['id'], $row['pseudo'], $row['mail'], $row['password'], $row['score'], $row['id_role']);
         } elseif ($row['id_role'] == 2) {
-            return new UserKid($row['id'], $row['pseudo'], $row['mail'], $row['password'], $row['id_role']);
+            return new UserKid($row['id'], $row['pseudo'], $row['mail'], $row['password'], $row['id_role'],$row['score'], $row['score']);
         } else {
             return null;
         }
@@ -70,6 +73,11 @@ class User
         return $this->id_role;
     }
 
+    public function getScore(): ?int
+    {
+        return $this->score;
+    }
+
     public function setId(int $id): static
     {
         $this->id = $id;
@@ -94,9 +102,17 @@ class User
         return $this;
     }
 
+    public function setScore(int $score): static
+    {
+        $this->score = $score;
+        return $this;
+    }
+
     public function setIdRole(int|string $id_role): static
     {
         $this->id_role = $id_role;
         return $this;
     }
+
+  
 }
