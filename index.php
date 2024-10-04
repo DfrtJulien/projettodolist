@@ -15,4 +15,5 @@ $router->addRoute('/login', 'LoginController', 'index');
 $router->addRoute('/logout', 'LogoutController', 'logout');
 $router->addRoute('/addTask', 'TaskController', 'createTask');
 
+
 $router->handleRequest();
