@@ -49,7 +49,7 @@ require_once(__DIR__ . '/../partials/head.php');
             <?php
             } ?>
         </div>
-        <button type="submit" class='btn btn-success mt-5 mb-5'>Création tâche<button>
+        <button type="submit" class='btn btn-success mt-5 mb-5'>Création tâche</button>
     </div>
 </form>
 
