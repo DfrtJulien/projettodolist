@@ -106,6 +106,22 @@ class Task
         return $statement->execute([$this->title, $this->content, $this->start_task, $this->stop_task, $this->point, $this->id]);
     }
 
+    public function deleteTask()
+    {
+        $pdo = DataBase::getConnection();
+        $sql = 'DELETE FROM `task` WHERE `id` = ?';
+        $statement = $pdo->prepare($sql);
+        return $statement->execute([$this->id]);
+    }
+
+    public function deleteTodo()
+    {
+        $pdo = DataBase::getConnection();
+        $sql = "DELETE FROM `todo` WHERE `id_task` = ?";
+        $statement = $pdo->prepare($sql);
+        return $statement->execute([$this->id]);
+    }
+
     public function getId(): ?int
     {
         return $this->id;
