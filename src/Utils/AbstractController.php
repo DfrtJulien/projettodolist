@@ -94,4 +94,6 @@ abstract class AbstractController
         $this->checkFormat($nameInput, $value);
         return $this->arrayError;
     }
+
+  
 }
