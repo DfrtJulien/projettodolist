@@ -4,9 +4,42 @@ namespace App\Controllers;
 
 use App\Utils\AbstractController;
 use App\Models\Task;
+use App\Models\User;
 
 class TaskController extends AbstractController
 {
+    public function index()
+    {
+        if ($_GET['id']) {
+            //on met l'id de la tache dans une variable
+            $idTask = $_GET['id'];
+            //on instancie une nouvelle tache avec l'id de la tache
+            $task = new Task($idTask, null, null, null, null, null, null, null, null, null);
+            //on appelle la méthode pour aller chercher la tache dans la BDD on met le resulat dans la variable
+            $myTask = $task->getTaskById();
+
+            //Si la tache n'existe pas dans la base de donnée alors on redirige vers /home
+            if (!$task) {
+                $this->redirectToRoute('/');
+            }
+
+            $idUser = $myTask->getIdUser();
+
+            $user = new User($idUser, null, null, null, null, null);
+
+            $myUser = $user->getUserById();
+
+
+            $dateCreation = date_create($myTask->getCreationDate());
+            $dateStartDay = date_create($myTask->getStartTask());
+            $dateStopDay = date_create($myTask->getStopTask());
+
+            require_once(__DIR__ . "/../Views/task/task.view.php");
+        } else {
+            $this->redirectToRoute('/');
+        }
+    }
+
     public function createTask()
     {
         if (isset($_SESSION['user']) && $_SESSION['user']['idRole'] == 1) {
@@ -26,7 +59,7 @@ class TaskController extends AbstractController
                     $creation_date = date('Y-m-d H:i:s');
                     $id_user = $_SESSION['user']['idUser'];
 
-                    $task = new Task(null, $title, $content, $creation_date, $start_task, $stop_task, $point, $id_user, null);
+                    $task = new Task(null, $title, $content, $creation_date, $start_task, $stop_task, $point, $id_user, null, null);
 
                     $task->addTask();
                     $this->redirectToRoute('/');
