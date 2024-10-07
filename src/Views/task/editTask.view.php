@@ -1,12 +1,12 @@
 <?php
 require_once(__DIR__ . '/../partials/head.php');
 ?>
-<h1>Création d'une tâche</h1>
+<h1>Modifier la tâche</h1>
 <form method='POST'>
     <div class="col-md-4 mx-auto d-block mt-5">
         <div class="mb-3">
             <label for="title">Nom de la tâche</label>
-            <input type="text" name='title'>
+            <input type="text" name='title' value="<?= $myTask->getTitle() ?>">
             <?php if (isset($this->arrayError['title'])) {
             ?>
                 <p class='text-danger'><?= $this->arrayError['title'] ?></p>
@@ -15,7 +15,7 @@ require_once(__DIR__ . '/../partials/head.php');
         </div>
         <div class="mb-3">
             <label for="content" class="form-label">Détails</label>
-            <textarea class="form-control" name="content"></textarea>
+            <textarea class="form-control" name="content"><?= $myTask->getContent() ?></textarea>
             <?php if (isset($arrayError['content'])) {
             ?>
                 <p class='text-danger'><?= $arrayError['content'] ?></p>
@@ -24,7 +24,7 @@ require_once(__DIR__ . '/../partials/head.php');
         </div>
         <div class="mb-3">
             <label for="start_task">Date du début</label>
-            <input type="datetime-local" name='start_task' value="<?= date("Y-m-d H:i") ?>">
+            <input type="datetime-local" name='start_task' value="<?= date_format($dateStartDay, "Y-m-d H:i") ?>">
             <?php if (isset($this->arrayError['start_task'])) {
             ?>
                 <p class='text-danger'><?= $this->arrayError['start_task'] ?></p>
@@ -33,7 +33,7 @@ require_once(__DIR__ . '/../partials/head.php');
         </div>
         <div class="mb-3">
             <label for="stop_task">Date limite de fin</label>
-            <input type="datetime-local" name='stop_task'>
+            <input type="datetime-local" name='stop_task' value="<?= date_format($dateStopDay, "Y-m-d H:i") ?>">
             <?php if (isset($this->arrayError['stop_task'])) {
             ?>
                 <p class='text-danger'><?= $this->arrayError['stop_task'] ?></p>
@@ -42,22 +42,14 @@ require_once(__DIR__ . '/../partials/head.php');
         </div>
         <div class="mb-3">
             <label for="point">Points</label>
-            <input type="number" name='point'>
+            <input type="number" name='point' value="<?= $myTask->getPoint() ?>">
             <?php if (isset($this->arrayError['point'])) {
             ?>
                 <p class='text-danger'><?= $this->arrayError['point'] ?></p>
             <?php
             } ?>
         </div>
-        <?php
-        foreach($myKids as $kid){
-            var_dump($myKids);
-            ?>
-            <option value="<?= $kid['id'] ?>"><?= $kid['pseudo'] ?></option>
-            <?php
-        }
-    ?>
-        <button type="submit" class='btn btn-success mt-5 mb-5'>Création tâche</button>
+        <button type="submit" class='btn btn-warning mt-5 mb-5'>Modifier tâche</button>
     </div>
 </form>
 

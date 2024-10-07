@@ -96,6 +96,16 @@ class Task
         }
     }
 
+    public function updateTask()
+    {
+        $pdo = DataBase::getConnection();
+        $sql = "UPDATE `task` 
+        SET `title` = ?, `content` = ?, `start_task` = ?, `stop_task` = ?, `point` = ?
+        WHERE `task`.`id` = ?";
+        $statement = $pdo->prepare($sql);
+        return $statement->execute([$this->title, $this->content, $this->start_task, $this->stop_task, $this->point, $this->id]);
+    }
+
     public function getId(): ?int
     {
         return $this->id;
