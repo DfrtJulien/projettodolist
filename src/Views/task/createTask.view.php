@@ -49,14 +49,6 @@ require_once(__DIR__ . '/../partials/head.php');
             <?php
             } ?>
         </div>
-        <?php
-        foreach($myKids as $kid){
-            var_dump($myKids);
-            ?>
-            <option value="<?= $kid['id'] ?>"><?= $kid['pseudo'] ?></option>
-            <?php
-        }
-    ?>
         <button type="submit" class='btn btn-success mt-5 mb-5'>Création tâche</button>
     </div>
 </form>

@@ -14,7 +14,7 @@ class TaskController extends AbstractController
             //on met l'id de la tache dans une variable
             $idTask = $_GET['id'];
             //on instancie une nouvelle tache avec l'id de la tache
-            $task = new Task($idTask, null, null, null, null, null, null, null, null, null);
+            $task = new Task($idTask, null, null, null, null, null, null, null, null, null, null);
             //on appelle la méthode pour aller chercher la tache dans la BDD on met le resulat dans la variable
             $myTask = $task->getTaskById();
 
@@ -59,7 +59,7 @@ class TaskController extends AbstractController
                     $creation_date = date('Y-m-d H:i:s');
                     $id_user = $_SESSION['user']['idUser'];
 
-                    $task = new Task(null, $title, $content, $creation_date, $start_task, $stop_task, $point, $id_user, null, null);
+                    $task = new Task(null, $title, $content, $creation_date, $start_task, $stop_task, $point, $id_user, null, null, null);
 
                     $task->addTask();
                     $this->redirectToRoute('/');
@@ -78,7 +78,7 @@ class TaskController extends AbstractController
             //on met l'id de la tache dans une variable
             $idTask = $_GET['id'];
             //on instancie une nouvelle tache avec l'id de la tache
-            $task = new Task($idTask, null, null, null, null, null, null, null, null, null);
+            $task = new Task($idTask, null, null, null, null, null, null, null, null, null, null);
             //on appelle la méthode pour aller chercher la tache dans la BDD on met le resulat dans la variable
             $myTask = $task->getTaskById();
 
@@ -103,7 +103,7 @@ class TaskController extends AbstractController
                     $point = htmlspecialchars($_POST['point']);
                     $content = htmlspecialchars($_POST['content']);
 
-                    $task = new Task($idTask, $title, $content, null, $start_task, $stop_task, $point, null, null, null);
+                    $task = new Task($idTask, $title, $content, null, $start_task, $stop_task, $point, null, null, null, null);
 
                     $task->updateTask();
                     $this->redirectToRoute('/');
@@ -120,7 +120,7 @@ class TaskController extends AbstractController
     {
         if (isset($_POST['id'])) {
             $idTask = htmlspecialchars($_POST['id']);
-            $task = new Task($idTask, null, null, null, null, null, null, null, null, null);
+            $task = new Task($idTask, null, null, null, null, null, null, null, null, null, null);
             $task->deleteTask();
             $this->redirectToRoute('/');
         }
@@ -130,9 +130,83 @@ class TaskController extends AbstractController
     {
         if (isset($_POST['id'])) {
             $idTask = htmlspecialchars($_POST['id']);
-            $task = new Task($idTask, null, null, null, null, null, null, null, null, null);
+            $task = new Task($idTask, null, null, null, null, null, null, null, null, null, null);
             $task->deleteTodo();
             $task->deleteTask();
+            $this->redirectToRoute('/');
+        }
+    }
+
+    public function addKidTask()
+    {
+        if ($_GET['id']) {
+            //on met l'id de la tache dans une variable
+            $idTask = $_GET['id'];
+            //on instancie une nouvelle tache avec l'id de la tache
+            $task = new Task($idTask, null, null, null, null, null, null, null, null, null, null);
+            //on appelle la méthode pour aller chercher la tache dans la BDD on met le resulat dans la variable
+            $myTask = $task->getTaskById();
+
+            $user = new User(null, null, null, null, null, null);
+            $myKids = $user->getKids();
+
+            if (!$myTask) {
+                $this->redirectToRoute('/');
+            }
+
+            if (isset($_POST['kid'])) {
+                $idKid = htmlspecialchars($_POST['kid']);
+                $status = htmlspecialchars($_POST['status']);
+
+                $this->checkFormat('kid', $idKid);
+                $this->checkFormat('status', $status);
+
+                if (empty($this->arrayError)) {
+                    $task = new Task($idTask, null, null, null, null, null, null, null, $status, null, $idKid);
+                    $task->addTodo();
+                    $this->redirectToRoute('/');
+                }
+            }
+
+            require_once(__DIR__ . "/../Views/task/addKidTask.view.php");
+        } else {
+            $this->redirectToRoute('/');
+        }
+    }
+
+    public function updateTodoTask()
+    {
+        if ($_GET['id']) {
+            //on met l'id de la tache dans une variable
+            $idTask = $_GET['id'];
+            //on instancie une nouvelle tache avec l'id de la tache
+            $task = new Task($idTask, null, null, null, null, null, null, null, null, null, null);
+            //on appelle la méthode pour aller chercher la tache dans la BDD on met le resulat dans la variable
+            $myTask = $task->getTaskById();
+
+            $user = new User(null, null, null, null, null, null);
+            $myKids = $user->getKids();
+
+            if (!$myTask) {
+                $this->redirectToRoute('/');
+            }
+
+            if (isset($_POST['kid'])) {
+                $idKid = htmlspecialchars($_POST['kid']);
+                $status = htmlspecialchars($_POST['status']);
+
+                $this->checkFormat('kid', $idKid);
+                $this->checkFormat('status', $status);
+
+                if (empty($this->arrayError)) {
+                    $task = new Task($idTask, null, null, null, null, null, null, null, $status, null, $idKid);
+                    $task->updateTodo();
+                    $this->redirectToRoute('/');
+                }
+            }
+
+            require_once(__DIR__ . "/../Views/task/addKidTask.view.php");
+        } else {
             $this->redirectToRoute('/');
         }
     }
