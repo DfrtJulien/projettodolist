@@ -62,6 +62,21 @@ class User
         }
     }
 
+    public function getKids()
+    {
+        $pdo = DataBase::getConnection();
+        $sql = "SELECT `user`.`id`, `user`.`pseudo` FROM `user` WHERE `user`.`id_role` = 2";
+        $statement = $pdo->prepare($sql);
+        $statement->execute();
+        $resultKids = $statement->fetchAll(PDO::FETCH_ASSOC);
+        $kids = [];
+        foreach ($resultKids as $row) {
+            $kid = new User($row['id'], $row['pseudo'], null, null, null, null);
+            $kids[] = $kid;
+        }
+        return $kids;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
