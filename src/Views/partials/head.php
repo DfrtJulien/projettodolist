@@ -37,6 +37,12 @@
                             <a class="nav-link" href="/addTask">Ajouter une tache</a>
                         </li>
                         <?php
+                    } else {
+                        ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/myTasks?id=<?= $_SESSION['user']['idUser'] ?>">Voir mes taches</a>
+                        </li>
+                        <?php
                     }
                     } else {
                     ?>
