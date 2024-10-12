@@ -9,6 +9,7 @@ if ($resultTask) {
 
 ?>
         <div class="bgg">
+            <h2>Titre : <?= $myTask->getTitle() ?></h2>
             <p>Déscription : <?= $myTask->getContent() ?> </p>
             <p>Date de création <?= $myTask->getCreationDate() ?></p>
             <p>Du : <?= $myTask->getStartTask()  ?> au: <?= $myTask->getStopTask() ?></p>

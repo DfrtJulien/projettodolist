@@ -72,6 +72,7 @@ if (isset($_SESSION['user']) && $_SESSION['user']['idRole'] == 2) {
                     <p class="card-text"><?= $task->getContent() ?></p>
                     <p class="card-text">Du <?= date_format($dateStartDay, 'd-m-Y à H:i') ?> au <?= date_format($dateStopDay, 'd-m-Y à H:i') ?></p>
                     <a href="/task?id=<?= $task->getId() ?>" class="btn btn-success">Voir plus</a>
+                    <a href="/updateAssignTask?id=<?= $task->getId() ?>" class="btn btn-info m-1">S'assigné la tache</a>
                 </div>
             </div>
 <?php
