@@ -213,17 +213,12 @@ class TaskController extends AbstractController
 
     public function showMyTasks()
     {
-        if(isset($_GET['id'])){
+        if (isset($_GET['id'])) {
             $idKid = $_GET['id'];
-            $task = new Task(null,null,null,null,null,null,null,null,null,null,$idKid);
+            $task = new Task(null, null, null, null, null, null, null, null, null, null, $idKid);
             $resultTask = $task->getMyTasks();
-            $test = $task->getIdKid();
-            var_dump($test);
-            // var_dump('resultat de la méthode' . $resultTask);
-
 
             require_once(__DIR__ . '/../Views/task/myTasks.view.php');
         }
-       
     }
 }

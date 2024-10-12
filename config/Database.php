@@ -10,7 +10,7 @@ class DataBase
   static function getConnection()
   {
     try {
-      $pdo = new PDO('mysql:host=localhost;dbname=todo;charset=utf8', 'root');
+      $pdo = new PDO('mysql:host=localhost;dbname=todolist;charset=utf8', 'root');
     } catch (Exception $e) {
       die('Erreur :' . $e->getMessage());
     }

@@ -144,7 +144,7 @@ class Task
     public function getMyTasks()
     {
         $pdo = DataBase::getConnection();
-        $sql = "SELECT `task`.`title`,`task`.`content`,`task`.`creation_date`,`task`.`start_task`,`task`.`stop_task`,`task`.`point`,`todo`.`status`,`user`.`id`,`user`.`pseudo`
+        $sql = "SELECT `task`.`title`,`task`.`content`,`task`.`creation_date`,`task`.`start_task`,`task`.`stop_task`,`task`.`point`,`todo`.`status`,`todo`.`id_user` AS `idKid`,`user`.`id`,`user`.`pseudo`
                 FROM `todo`
                 RIGHT JOIN `task` ON `todo`.`id_task` = `task`.`id`
                 LEFT JOIN `user` ON `todo`.`id_user` = `user`.`id`
@@ -152,16 +152,26 @@ class Task
         $statement = $pdo->prepare($sql);
         $statement->execute([$this->idKid]);
         $resultFetch = $statement->fetchAll(PDO::FETCH_ASSOC);
-        var_dump('toto');
         $tasks = [];
-        var_dump($resultFetch);
+        // var_dump($resultFetch);
         foreach ($resultFetch as $row) {
-            $task = new Task($row['id'], $row['title'], $row['content'], $row['creation_date'], $row['start_task'], $row['stop_task'], $row['point'], $row['status'], null, $row['pseudo'], null);
+            $task = new Task($row['id'], $row['title'], $row['content'], $row['creation_date'], $row['start_task'], $row['stop_task'], $row['point'], null, $row['status'], null, $row['idKid'], $row['pseudo']);
             $tasks[] = $task;
-            
         }
         return $tasks;
     }
+
+    // $this->id = $id;
+    //     $this->title = $title;
+    //     $this->content = $content;
+    //     $this->creation_date = $creation_date;
+    //     $this->start_task = $start_task;
+    //     $this->stop_task = $stop_task;
+    //     $this->point = $point;
+    //     $this->id_user = $id_user;
+    //     $this->status = $status;
+    //     $this->pseudo = $pseudo;
+    //     $this->idKid = $idKid;
 
     public function getId(): ?int
     {
