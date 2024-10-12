@@ -24,5 +24,6 @@ $router->addRoute('/deleteTask', 'TaskController', 'deleteTask');
 $router->addRoute('/deleteTaskAndTodo', 'TaskController', 'deleteTaskAndTodo');
 $router->addRoute('/assignTask', 'TaskController', 'addKidTask');
 $router->addRoute('/updateAssignTask', 'TaskController', 'updateTodoTask');
+$router->addRoute('/myTasks', 'TaskController', 'showMyTasks');
 
 $router->handleRequest();
