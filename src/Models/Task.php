@@ -161,17 +161,6 @@ class Task
         return $tasks;
     }
 
-    // $this->id = $id;
-    //     $this->title = $title;
-    //     $this->content = $content;
-    //     $this->creation_date = $creation_date;
-    //     $this->start_task = $start_task;
-    //     $this->stop_task = $stop_task;
-    //     $this->point = $point;
-    //     $this->id_user = $id_user;
-    //     $this->status = $status;
-    //     $this->pseudo = $pseudo;
-    //     $this->idKid = $idKid;
 
     public function getId(): ?int
     {

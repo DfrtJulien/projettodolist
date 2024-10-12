@@ -192,6 +192,7 @@ class TaskController extends AbstractController
             }
 
             if (isset($_POST['kid'])) {
+
                 $idKid = htmlspecialchars($_POST['kid']);
                 $status = htmlspecialchars($_POST['status']);
 
@@ -200,6 +201,7 @@ class TaskController extends AbstractController
 
                 if (empty($this->arrayError)) {
                     $task = new Task($idTask, null, null, null, null, null, null, null, $status, null, $idKid);
+                    $task->addTodo();
                     $task->updateTodo();
                     $this->redirectToRoute('/');
                 }
