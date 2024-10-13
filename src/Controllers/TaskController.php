@@ -223,4 +223,20 @@ class TaskController extends AbstractController
             require_once(__DIR__ . '/../Views/task/myTasks.view.php');
         }
     }
+
+    public function endTask()
+    {
+        if (isset($_GET['idTask']) && isset($_GET['idUser']) && isset($_GET['point'])) {
+            $idTask = $_GET['idTask'];
+            $idUser = $_GET['idUser'];
+            $point = intval($_GET['point']);
+
+            $task = new Task($idTask, null, null, null, null, null, $point, null, null, null, $idUser);
+            $task->addPoint();
+            $task->deleteTodo();
+            $task->deleteTask();
+
+            $this->redirectToRoute('/');
+        }
+    }
 }

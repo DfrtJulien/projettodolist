@@ -26,5 +26,6 @@ $router->addRoute('/assignTask', 'TaskController', 'addKidTask');
 $router->addRoute('/updateAssignTask', 'TaskController', 'updateTodoTask');
 $router->addRoute('/myTasks', 'TaskController', 'showMyTasks');
 $router->addRoute('/user', 'UserController', 'index');
+$router->addRoute('/endTask', 'TaskController', 'endTask');
 
 $router->handleRequest();
