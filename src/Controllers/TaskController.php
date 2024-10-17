@@ -232,11 +232,20 @@ class TaskController extends AbstractController
             $point = intval($_GET['point']);
 
             $task = new Task($idTask, null, null, null, null, null, $point, null, null, null, $idUser);
-            $task->addPoint();
-            $task->deleteTodo();
-            $task->deleteTask();
+            $user = new User($idUser, null, null, null, null, null);
+            $myUserScore = $user->getScore();
+            if ($myUserScore) {
+                $task->addPointNotNull();
+                $task->deleteTodo();
+                $task->deleteTask();
 
-            $this->redirectToRoute('/');
+                $this->redirectToRoute('/');
+            } else {
+                $task->addPoint();
+                $task->deleteTodo();
+                $task->deleteTask();
+                $this->redirectToRoute('/');
+            }
         }
     }
 }
