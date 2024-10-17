@@ -164,6 +164,14 @@ class Task
     public function addPoint()
     {
         $pdo = DataBase::getConnection();
+        $sql = "UPDATE `user` SET `score`=  ? WHERE id = ?";
+        $statement = $pdo->prepare($sql);
+        return $statement->execute([$this->point, $this->idKid]);
+    }
+
+    public function addPointNotNull()
+    {
+        $pdo = DataBase::getConnection();
         $sql = "UPDATE `user` SET `score`= `score` + ? WHERE id = ?";
         $statement = $pdo->prepare($sql);
         return $statement->execute([$this->point, $this->idKid]);
