@@ -30,22 +30,25 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/logout">Déconnexion</a>
                         </li>
-                    <?php
-                    if($_SESSION['user']['idRole'] == 1){
-                        ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/addTask">Ajouter une tache</a>
-                        </li>
                         <?php
+                        if ($_SESSION['user']['idRole'] == 1) {
+                        ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/addTask">Ajouter une tache</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/uncompletedTask">Voir les taches passés</a>
+                            </li>
+                        <?php
+                        } else {
+                        ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/myTasks?id=<?= $_SESSION['user']['idUser'] ?>">Voir mes taches</a>
+                            </li>
+                        <?php
+                        }
                     } else {
                         ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/myTasks?id=<?= $_SESSION['user']['idUser'] ?>">Voir mes taches</a>
-                        </li>
-                        <?php
-                    }
-                    } else {
-                    ?>
                         <li class="nav-item">
                             <a class="nav-link" href="/register">Inscription</a>
                         </li>
