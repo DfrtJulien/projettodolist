@@ -248,4 +248,12 @@ class TaskController extends AbstractController
             }
         }
     }
+
+    public function uncompletedTask()
+    {
+        $task = new Task(null, null, null, null, null, null, null, null, null, null, null);
+        $unassignedPassedTask = $task->getUnassignedPassedTask();
+
+        require_once(__DIR__ . '/../Views/task/uncompletedTask.view.php');
+    }
 }

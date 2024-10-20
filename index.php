@@ -25,7 +25,10 @@ $router->addRoute('/deleteTaskAndTodo', 'TaskController', 'deleteTaskAndTodo');
 $router->addRoute('/assignTask', 'TaskController', 'addKidTask');
 $router->addRoute('/updateAssignTask', 'TaskController', 'updateTodoTask');
 $router->addRoute('/myTasks', 'TaskController', 'showMyTasks');
-$router->addRoute('/user', 'UserController', 'index');
 $router->addRoute('/endTask', 'TaskController', 'endTask');
+$router->addRoute('/uncompletedTask', 'TaskController', 'uncompletedTask');
+
+// page user
+$router->addRoute('/user', 'UserController', 'index');
 
 $router->handleRequest();
