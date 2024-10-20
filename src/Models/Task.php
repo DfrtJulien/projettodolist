@@ -197,6 +197,27 @@ class Task
         return $tasks;
     }
 
+    public function getAssignedPassedTask()
+    {
+        $pdo = DataBase::getConnection();
+        $sql = "SELECT `task`.`id`, `task`.`title`, `task`.`start_task`, `task`.`stop_task`, `user`.`pseudo`,`todo`.`id_user`
+        FROM `todo`
+        RIGHT JOIN `task` ON `todo`.`id_task` = `task`.`id`
+        LEFT JOIN `user` ON `todo`.`id_user` = `user`.`id`
+        WHERE `task`.`stop_task` < CURDATE() 
+        AND `todo`.`id_user` IS NOT NULL 
+        ORDER BY `task`.`start_task` ASC";
+        $statement = $pdo->prepare($sql);
+        $statement->execute();
+        $resultFetch = $statement->fetchAll(PDO::FETCH_ASSOC);
+        $tasks = [];
+        foreach ($resultFetch as $row) {
+            $task = new Task($row['id'], $row['title'], null, null, $row['start_task'], $row['stop_task'], null, null, null, $row['pseudo'], $row['id_user']);
+            $tasks[] = $task;
+        }
+        return $tasks;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
