@@ -253,7 +253,7 @@ class TaskController extends AbstractController
     {
         $task = new Task(null, null, null, null, null, null, null, null, null, null, null);
         $unassignedPassedTask = $task->getUnassignedPassedTask();
-
+        $assignedPassedTask = $task->getAssignedPassedTask();
         require_once(__DIR__ . '/../Views/task/uncompletedTask.view.php');
     }
 }
